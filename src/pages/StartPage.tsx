@@ -49,7 +49,7 @@ export function StartPage() {
         </div>
 
         {user && (
-          <div className="infoBox" onClick={() => console.log("myDrafts")}>
+          <div className="infoBox">
             <span className="infoLabel">Aktueller Status</span>
             <strong>{user.drafts} Entwürfe</strong>
             <p>Sie können begonnene Anträge jederzeit fortsetzen.</p>

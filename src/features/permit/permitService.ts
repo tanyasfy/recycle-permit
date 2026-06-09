@@ -21,7 +21,7 @@ export const permitService = {
     const newPermit: Permit = {
       ...permit,
       id: `EAR-2026-${String(permits.length + 1).padStart(3, "0")}`,
-      submittedAt: new Date().toISOString(),
+      submittedAt: new Date().toISOString().slice(0, 10),
       status: permitStatus ?? "submitted",
     };
 

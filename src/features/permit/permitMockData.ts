@@ -1,18 +1,5 @@
 import type { Permit } from "./permit.types";
 
-/* id: string;
-  userId: string;
-  facilityName?: string;
-  companyName?: string;
-  contactPerson?: string;
-  email?: string;
-  location?: string;
-  submittedAt?: string;
-  capacity?: number;
-  hasPermit?: boolean;
-  documents?: string[];
-  status: PermitStatus; */
-
 export const permitMockData: Permit[] = [
   {
     id: "EAR-2026-001",

@@ -85,7 +85,9 @@ export function AuthModal({
               Benutzer-Id
               <input {...register("loginId")} />
               {errors.loginId && (
-                <span className="error">{errors.loginId.message}</span>
+                <span className="error" role="alert">
+                  {errors.loginId.message}
+                </span>
               )}
             </label>
 
@@ -93,7 +95,9 @@ export function AuthModal({
               Passwort
               <input {...register("password")} />
               {errors.password && (
-                <span className="error">{errors.password.message}</span>
+                <span className="error" role="alert">
+                  {errors.password.message}
+                </span>
               )}
             </label>
 

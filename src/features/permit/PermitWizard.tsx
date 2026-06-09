@@ -11,12 +11,12 @@ import {
 import "./PermitWizard.css";
 import { Popup } from "../../components/Popup/Popup";
 import { permitService } from "./permitService";
-import { useSelector } from "react-redux";
-import { type RootState } from "../../store/store";
 import { useNavigate } from "react-router";
 import { Button } from "../../components/ui/Button";
 import type { Permit } from "./permit.types";
 import { useFocusTrap } from "../../hooks/useFocusTrap";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { setDraftCount } from "../../store/authSlice";
 
 const defaultValues: PermitFormData = {
   companyName: "",
@@ -45,11 +45,12 @@ interface PermitWizardProps {
 export function PermitWizard({ draft }: PermitWizardProps) {
   const wizardRef = useFocusTrap<HTMLElement>(true);
   const [currentStep, setCurrentStep] = useState(0);
-  const [openSuccessPopup, setOpenSuccessPopup] = useState(false);
+  const [openPopup, setOpenPopup] = useState(false);
   const [popupTitle, setPopupTitle] = useState("");
-  const { user } = useSelector((state: RootState) => state.auth);
+  const { user } = useAppSelector((state) => state.auth);
   const [filteredSteps, setFilteredSteps] = useState(steps);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -91,19 +92,25 @@ export function PermitWizard({ draft }: PermitWizardProps) {
   };
 
   const onSubmit = async (data: PermitFormData) => {
+    if (!user) return;
     try {
-      await permitService.createPermit({ ...data, userId: "user-001" });
+      if (draft) {
+        await permitService.deletePermit(draft.id);
+        const draftCount = await permitService.getDraftCount(user.id);
+        dispatch(setDraftCount(draftCount));
+      }
+      await permitService.createPermit({ ...data, userId: user.id });
       reset(defaultValues);
       localStorage.removeItem(STORAGE_KEY);
       setCurrentStep(0);
       setPopupTitle("Antrag wurde erfolgreich eingereicht.");
-      setOpenSuccessPopup(true);
+      setOpenPopup(true);
     } catch (e) {
       console.error(e);
       setPopupTitle(
         "Es ist ein Fehler eingetretten. Versuchen Sie es noch mal",
       );
-      setOpenSuccessPopup(true);
+      setOpenPopup(true);
     }
   };
 
@@ -118,18 +125,27 @@ export function PermitWizard({ draft }: PermitWizardProps) {
   };
 
   const saveDraft = async () => {
+    if (!user) return;
     try {
+      if (draft) {
+        await permitService.deletePermit(draft.id);
+      }
       await permitService.createPermit(
-        { ...formValues, userId: "user-001" },
+        { ...formValues, userId: user.id },
         "draft",
       );
+
+      const draftCount = await permitService.getDraftCount(user.id);
+      dispatch(setDraftCount(draftCount));
+
       setPopupTitle("Entwurf wurde erfolgreich gespeichert.");
-      setOpenSuccessPopup(true);
+      setOpenPopup(true);
     } catch (e) {
       console.error(e);
       setPopupTitle(
         "Es ist ein Fehler eingetretten. Versuchen Sie es noch mal",
       );
+      setOpenPopup(true);
     }
   };
 
@@ -141,7 +157,7 @@ export function PermitWizard({ draft }: PermitWizardProps) {
     if (currentStep === 1) {
       setFocus("facilityName");
     }
-  }, [currentStep]);
+  }, [currentStep, setFocus]);
 
   useEffect(() => {
     if (draft) {
@@ -168,7 +184,20 @@ export function PermitWizard({ draft }: PermitWizardProps) {
   useEffect(() => {
     const subscription = watch((values) => {
       const timer = setTimeout(() => {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(values));
+        const hasContent =
+          !!values.companyName ||
+          !!values.contactPerson ||
+          !!values.email ||
+          !!values.facilityName ||
+          !!values.location ||
+          (values.capacity ?? 0) > 0 ||
+          (values.documents?.length ?? 0) > 0;
+
+        if (hasContent) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(values));
+        } else {
+          localStorage.removeItem(STORAGE_KEY);
+        }
       }, 1000);
 
       return () => clearTimeout(timer);
@@ -178,6 +207,7 @@ export function PermitWizard({ draft }: PermitWizardProps) {
   }, [watch]);
 
   useEffect(() => {
+    if (!user) return;
     setFilteredSteps(() => (user ? steps.slice(0, 4) : steps));
   }, [user]);
 
@@ -212,7 +242,9 @@ export function PermitWizard({ draft }: PermitWizardProps) {
               Unternehmensname
               <input {...register("companyName")} autoFocus />
               {errors.companyName && (
-                <span className="error">{errors.companyName.message}</span>
+                <span className="error" role="alert">
+                  {errors.companyName.message}
+                </span>
               )}
             </label>
 
@@ -220,7 +252,9 @@ export function PermitWizard({ draft }: PermitWizardProps) {
               Kontaktperson
               <input {...register("contactPerson")} />
               {errors.contactPerson && (
-                <span className="error">{errors.contactPerson.message}</span>
+                <span className="error" role="alert">
+                  {errors.contactPerson.message}
+                </span>
               )}
             </label>
 
@@ -228,7 +262,9 @@ export function PermitWizard({ draft }: PermitWizardProps) {
               E-Mail
               <input type="email" {...register("email")} />
               {errors.email && (
-                <span className="error">{errors.email.message}</span>
+                <span className="error" role="alert">
+                  {errors.email.message}
+                </span>
               )}
             </label>
           </div>
@@ -242,7 +278,9 @@ export function PermitWizard({ draft }: PermitWizardProps) {
               Name der Anlage
               <input {...register("facilityName")} />
               {errors.facilityName && (
-                <span className="error">{errors.facilityName.message}</span>
+                <span className="error" role="alert">
+                  {errors.facilityName.message}
+                </span>
               )}
             </label>
 
@@ -250,7 +288,9 @@ export function PermitWizard({ draft }: PermitWizardProps) {
               Standort
               <input {...register("location")} />
               {errors.location && (
-                <span className="error">{errors.location.message}</span>
+                <span className="error" role="alert">
+                  {errors.location.message}
+                </span>
               )}
             </label>
 
@@ -261,7 +301,9 @@ export function PermitWizard({ draft }: PermitWizardProps) {
                 {...register("capacity", { valueAsNumber: true })}
               />
               {errors.capacity && (
-                <span className="error">{errors.capacity.message}</span>
+                <span className="error" role="alert">
+                  {errors.capacity.message}
+                </span>
               )}
             </label>
 
@@ -284,7 +326,9 @@ export function PermitWizard({ draft }: PermitWizardProps) {
                 onChange={(event) => handleFileChange(event.target.files)}
               />
               {errors.documents && (
-                <span className="error">{errors.documents.message}</span>
+                <span className="error" role="alert">
+                  {errors.documents.message}
+                </span>
               )}
             </label>
 
@@ -373,9 +417,9 @@ export function PermitWizard({ draft }: PermitWizardProps) {
       </form>
 
       <Popup
-        isOpen={openSuccessPopup}
+        isOpen={openPopup}
         onClose={() => {
-          setOpenSuccessPopup(false);
+          setOpenPopup(false);
           navigate("/permits");
         }}
         title={popupTitle}

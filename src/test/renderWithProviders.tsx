@@ -9,9 +9,9 @@ import type { RootState } from "../store/store";
 export function renderWithProviders(
   ui: ReactNode,
   {
-    preloadedState = {},
+    preloadedState,
     route = "/",
-  }: { preloadedState?: Partial<RootState>; route?: string } = {},
+  }: { preloadedState?: RootState; route?: string } = {},
 ) {
   const store = configureStore({
     reducer: { auth: authReducer },

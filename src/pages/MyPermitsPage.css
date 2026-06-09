@@ -156,3 +156,38 @@
   padding: 0;
   text-decoration: underline;
 }
+
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+.permitCardSkeleton {
+  pointer-events: none;
+}
+
+.skeletonLine {
+  border-radius: 8px;
+  background: linear-gradient(90deg, #e8eef4 25%, #f4f7fb 50%, #e8eef4 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+  margin-bottom: 16px;
+}
+
+.skeletonTitle {
+  height: 24px;
+  width: 60%;
+}
+
+.skeletonText {
+  height: 16px;
+  width: 80%;
+}
+
+.skeletonShort {
+  width: 40%;
+}
