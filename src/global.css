@@ -1,0 +1,49 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainContent {
+  flex: 1;
+}
+
+.statusBadge {
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 700;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.statusBadge.draft {
+  background: #eef2f6;
+  color: #4a5d70;
+}
+.statusBadge.submitted {
+  background: #eef6fc;
+  color: #0069b4;
+}
+.statusBadge.inReview {
+  background: #fff4db;
+  color: #8a5a00;
+}
+.statusBadge.addDockRequired {
+  background: #f1e6d8;
+  color: #c4620a;
+}
+.statusBadge.approved {
+  background: #e7f7ed;
+  color: #147a3d;
+}
+.statusBadge.rejected {
+  background: #fdecec;
+  color: #b42318;
+}

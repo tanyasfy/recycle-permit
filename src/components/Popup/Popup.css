@@ -1,0 +1,98 @@
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes contentSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.popupOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 49, 79, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: overlayFadeIn 0.2s ease;
+}
+
+.popupContent {
+  background: white;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 12px 40px rgba(20, 49, 79, 0.18);
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: contentSlideUp 0.25s ease;
+}
+
+.popupHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.popupTitle {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #14314f;
+  line-height: 1.3;
+}
+
+.popupCloseButton {
+  background: #f6f8fb;
+  border: none;
+  border-radius: 999px;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #4a5d70;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.popupCloseButton:hover {
+  background: #eef2f6;
+  color: #14314f;
+}
+
+.popupCloseButton:focus {
+  outline: 3px solid #0069b4;
+  outline-offset: 2px;
+}
+
+.popupBody {
+  color: #4a5d70;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .popupContent {
+    margin: 16px;
+    padding: 24px;
+  }
+}

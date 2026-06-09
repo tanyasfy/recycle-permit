@@ -1,0 +1,185 @@
+.wizardPage {
+  padding: 64px 30px;
+  background: #f6f8fb;
+  min-height: 100%;
+  color: #14314f;
+  margin: auto;
+}
+
+.wizardHeader {
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.eyebrow {
+  color: #0069b4;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.wizardHeader h1 {
+  font-size: 42px;
+}
+
+.wizardHeader p {
+  color: #4a5d70;
+  font-size: 18px;
+}
+
+.stepper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.step {
+  background: white;
+  border: 1px solid #dce6ef;
+  border-radius: 18px;
+  padding: 16px;
+  font-weight: 700;
+  color: #4a5d70;
+}
+
+.step span {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  margin-right: 8px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  background: #eef6fc;
+  color: #0069b4;
+}
+
+.step.active {
+  border-color: #0069b4;
+  color: #0069b4;
+}
+
+.wizardCard {
+  background: white;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 12px 30px rgba(20, 49, 79, 0.08);
+  max-width: 950px;
+}
+
+.formStep {
+  display: grid;
+  gap: 24px;
+}
+
+.formStep h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+  font-weight: 700;
+}
+
+input {
+  border: 1px solid #cbd8e5;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 16px;
+  background-color: var(--bg);
+  color: #4a5d70;
+}
+
+input:focus {
+  outline: 3px solid rgba(0, 105, 180, 0.2);
+  border-color: #0069b4;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.checkboxLabel input {
+  width: 18px;
+  height: 18px;
+}
+
+.error {
+  color: #b42318;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.documentList {
+  margin: 0;
+  padding-left: 20px;
+  color: #4a5d70;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.summaryGrid div {
+  background: #f6f8fb;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.summaryGrid p {
+  margin-bottom: 0;
+  color: #4a5d70;
+}
+
+.wizardActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.primaryActions {
+  display: flex;
+  gap: 16px;
+}
+.primaryButton,
+.secondaryButton {
+  border-radius: 999px;
+  padding: 14px 22px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.primaryButton {
+  border: none;
+  background: #0069b4;
+  color: white;
+}
+
+.secondaryButton {
+  background: white;
+  color: #0069b4;
+  border: 2px solid #0069b4;
+}
+
+@media (max-width: 900px) {
+  .wizardPage {
+    padding: 40px 24px;
+  }
+
+  .stepper,
+  .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .wizardCard {
+    padding: 24px;
+  }
+}

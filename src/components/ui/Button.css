@@ -1,0 +1,42 @@
+.primaryButton,
+.secondaryButton,
+.tertiaryButton {
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.primaryButton {
+  background: #0069b4;
+  color: white;
+}
+
+.secondaryButton {
+  color: #0069b4;
+  border: 2px solid #0069b4;
+}
+
+.tertiaryButton {
+  background: transparent;
+  border: 1px solid #d7e0ea;
+}
+
+.tertiaryButton:hover {
+  background: #f3f7fb;
+}
+
+.primaryButton:focus {
+  outline: 3px solid #004f8a;
+  outline-offset: 3px;
+}
+
+.secondaryButton:focus {
+  outline: 3px solid #0069b4;
+  outline-offset: 3px;
+}
+
+.tertiaryButton:focus {
+  outline: 3px solid #4a5d70;
+  outline-offset: 3px;
+}

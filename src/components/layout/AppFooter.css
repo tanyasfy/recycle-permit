@@ -1,0 +1,55 @@
+.appFooter {
+  margin-top: auto;
+  background: white;
+  border-top: 1px solid #e4ebf2;
+}
+
+.footerContainer {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 28px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+}
+
+.footerBrand h3 {
+  margin: 0;
+  color: #14314f;
+  font-size: 18px;
+}
+
+.footerBrand p {
+  margin-top: 8px;
+  color: #6b7c8d;
+  font-size: 14px;
+}
+
+.footerNavigation {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footerNavigation a {
+  color: #4a5d70;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.footerNavigation a:hover {
+  color: #0069b4;
+}
+
+@media (max-width: 768px) {
+  .footerContainer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footerNavigation {
+    gap: 16px;
+  }
+}

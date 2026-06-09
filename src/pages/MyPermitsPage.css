@@ -1,0 +1,158 @@
+.myPermitsPage {
+  padding: 64px 80px;
+  background: #f6f8fb;
+  color: #14314f;
+}
+
+.pageHeader {
+  max-width: 760px;
+  margin: auto;
+  margin-bottom: 32px;
+}
+
+.eyebrow {
+  color: #0069b4;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pageHeader h1 {
+  font-size: 42px;
+  margin: 0 0 16px;
+}
+
+.pageHeader p {
+  color: #4a5d70;
+  font-size: 18px;
+}
+
+.permitsToolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.filterBar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filterChip {
+  background: white;
+  border: 1.5px solid #d7e0ea;
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4a5d70;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    color 0.15s;
+}
+
+.filterChip:hover {
+  border-color: #0069b4;
+  color: #0069b4;
+}
+
+.filterChipActive {
+  background: #0069b4;
+  border-color: #0069b4;
+  color: white;
+}
+
+.permitsGrid {
+  display: grid;
+  gap: 24px;
+}
+
+.permitCard {
+  background: white;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 12px 30px rgba(20, 49, 79, 0.08);
+}
+
+.permitCardHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.permitId {
+  color: #0069b4;
+  font-weight: 700;
+}
+
+.permitCard h2 {
+  margin: 8px 0 0;
+  font-size: 24px;
+}
+
+.permitDetails {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin: 28px 0;
+}
+
+.permitDetails div {
+  background: #f6f8fb;
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.permitDetails span {
+  display: block;
+  color: #6b7c8d;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.permitDetails strong {
+  color: #14314f;
+}
+
+.permitActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .myPermitsPage {
+    padding: 40px 24px;
+  }
+
+  .permitCardHeader,
+  .permitActions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .permitDetails {
+    grid-template-columns: 1fr;
+  }
+
+  .permitsToolbar {
+    justify-content: flex-start;
+  }
+}
+
+.deleteButton {
+  background: none;
+  border: none;
+  color: #c0392b;
+  cursor: pointer;
+  font-size: inherit;
+  padding: 0;
+  text-decoration: underline;
+}

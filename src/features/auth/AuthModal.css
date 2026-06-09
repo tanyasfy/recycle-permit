@@ -1,0 +1,54 @@
+.linkToHelp {
+  display: block;
+  color: var(--primary);
+  margin-bottom: 15px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.accordion {
+  margin-top: 12px;
+}
+
+.accordionTrigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 10px 0;
+  color: var(--primary);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: inherit;
+  text-align: left;
+}
+
+.accordionTrigger:focus {
+  outline: 3px solid #0069b4;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.accordionIcon {
+  margin-left: 8px;
+  font-style: normal;
+}
+
+.accordionContent {
+  padding: 8px 0 4px;
+  text-align: justify;
+}
+
+.accordionContent p {
+  margin-bottom: 10px;
+}
+
+.authActions {
+  width: 100%;
+  margin: 10px auto 0;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}

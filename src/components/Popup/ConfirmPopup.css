@@ -1,0 +1,16 @@
+.confirmPopupContent {
+  max-width: 420px;
+}
+
+.confirmMessage {
+  color: #4a5d70;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 12px 0 28px;
+}
+
+.confirmActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}

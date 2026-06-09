@@ -1,0 +1,85 @@
+import type { Permit } from "../../types/permitsTypes";
+
+/* id: string;
+  userId: string;
+  facilityName?: string;
+  companyName?: string;
+  contactPerson?: string;
+  email?: string;
+  location?: string;
+  submittedAt?: string;
+  capacity?: number;
+  hasPermit?: boolean;
+  documents?: string[];
+  status: PermitStatus; */
+
+export const permitMockData: Permit[] = [
+  {
+    id: "EAR-2026-001",
+    userId: "user-001",
+    companyName: "Müller Recycling GmbH",
+    facilityName: "Recyclinganlage Nord",
+    location: "Nürnberg",
+    capacity: 1200,
+    submittedAt: "2026-05-12",
+    status: "inReview",
+  },
+  {
+    id: "EAR-2026-002",
+    userId: "user-001",
+    companyName: "GreenCycle GmbH",
+    facilityName: "Wertstoffzentrum Süd",
+    location: "München",
+    capacity: 850,
+    submittedAt: "2026-05-18",
+    status: "draft",
+  },
+  {
+    id: "EAR-2026-003",
+    userId: "user-001",
+    companyName: "GreenCycle GmbH",
+    submittedAt: "2026-05-18",
+    status: "draft",
+  },
+  {
+    id: "EAR-2026-004",
+    userId: "user-001",
+    companyName: "Müller Recycling GmbH",
+    email: "mueller.max@test.de",
+    facilityName: "Recyclinganlage Nord",
+    contactPerson: "Max Müller",
+    location: "Nürnberg",
+    capacity: 1200,
+    submittedAt: "2026-05-19",
+    hasPermit: true,
+    status: "approved",
+  },
+  {
+    id: "EAR-2026-005",
+    userId: "user-001",
+    companyName: "GreenCycle GmbH",
+    facilityName: "Sortieranlage West",
+    contactPerson: "Anna Schmidt",
+    email: "a.schmidt@greencycle.de",
+    location: "Augsburg",
+    capacity: 500,
+    submittedAt: "2026-04-10",
+    status: "rejected",
+    rejectionReason:
+      "Die eingereichten Unterlagen erfüllen nicht die Anforderungen gemäß § 4 BImSchG. Die Kapazitätsangaben sind unvollständig und die Standortbeschreibung weist erhebliche Mängel auf. Bitte reichen Sie vollständige und überarbeitete Unterlagen ein.",
+  },
+  {
+    id: "EAR-2026-006",
+    userId: "user-001",
+    companyName: "GreenCycle GmbH",
+    facilityName: "Sortieranlage East",
+    contactPerson: "Helena Tran",
+    email: "h.tran@greencycle.de",
+    location: "Augsburg",
+    capacity: 500,
+    submittedAt: "2026-04-10",
+    status: "addDockRequired",
+    rejectionReason:
+      "Für die Bearbeitung Ihres Antrags fehlen noch erforderliche Unterlagen. Bitte laden Sie folgende Dokumente im Portal hoch: Nachweis über ..., Kopie von ..., Bestätigung über ... Sobald die Unterlagen vollständig vorliegen, wird Ihr Antrag weiter bearbeitet.",
+  },
+];
