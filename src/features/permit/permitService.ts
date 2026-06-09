@@ -1,4 +1,4 @@
-import type { Permit, PermitStatus } from "../../types/permitsTypes";
+import type { Permit, PermitStatus } from "./permit.types";
 import { permitMockData } from "./permitMockData";
 
 let permits = [...permitMockData];

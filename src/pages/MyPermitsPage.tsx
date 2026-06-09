@@ -5,7 +5,7 @@ import {
   statusLabels,
   type Permit,
   type PermitStatus,
-} from "../types/permitsTypes";
+} from "../features/permit/permit.types";
 import { permitService } from "../features/permit/permitService";
 import { Link, useNavigate } from "react-router";
 import { Button } from "../components/ui/Button";

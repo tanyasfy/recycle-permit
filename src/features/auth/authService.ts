@@ -1,4 +1,4 @@
-import type { LoginRequest, LoginResponce } from "../../types/authTypes";
+import type { LoginRequest, LoginResponce } from "./auth.types";
 
 export const authService = {
   async createUser(user: LoginRequest): Promise<LoginResponce> {

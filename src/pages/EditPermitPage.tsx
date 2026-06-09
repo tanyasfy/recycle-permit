@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { PermitWizard } from "../features/permit/PermitWizard";
 import { permitService } from "../features/permit/permitService";
-import type { Permit } from "../types/permitsTypes";
+import type { Permit } from "../features/permit/permit.types";
 
 export function EditPermitPage() {
   const { id } = useParams<{ id: string }>();

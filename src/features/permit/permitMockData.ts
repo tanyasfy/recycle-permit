@@ -1,4 +1,4 @@
-import type { Permit } from "../../types/permitsTypes";
+import type { Permit } from "./permit.types";
 
 /* id: string;
   userId: string;

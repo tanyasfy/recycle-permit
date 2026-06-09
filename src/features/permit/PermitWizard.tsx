@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import { type RootState } from "../../store/store";
 import { useNavigate } from "react-router";
 import { Button } from "../../components/ui/Button";
-import type { Permit } from "../../types/permitsTypes";
+import type { Permit } from "./permit.types";
 import { useFocusTrap } from "../../hooks/useFocusTrap";
 
 const defaultValues: PermitFormData = {

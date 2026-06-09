@@ -109,7 +109,6 @@ src/
 ├── routes/           # Router-Konfiguration, ProtectedRoute
 ├── store/            # Redux Store, authSlice
 ├── test/             # Testdateien und Hilfsfunktionen
-└── types/            # TypeScript-Typdefinitionen
 ```
 
 ## Funktionen

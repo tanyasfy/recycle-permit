@@ -4,7 +4,7 @@ import { Popup } from "../../components/Popup/Popup";
 import { useEffect, useState } from "react";
 import { useFocusTrap } from "../../hooks/useFocusTrap";
 import { authService } from "./authService";
-import type { LoginRequest } from "../../types/authTypes";
+import type { LoginRequest } from "./auth.types";
 import { useAppDispatch } from "../../hooks/hooks";
 import { loginMockUser, setDraftCount } from "../../store/authSlice";
 import { authSchema, type AuthFormInput } from "./authSchema";

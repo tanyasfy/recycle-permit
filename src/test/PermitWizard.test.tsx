@@ -4,7 +4,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { PermitWizard } from "../features/permit/PermitWizard";
 import { renderWithProviders } from "./renderWithProviders";
 import { permitService } from "../features/permit/permitService";
-import type { Permit } from "../types/permitsTypes";
+import type { Permit } from "../features/permit/permit.types";
 
 vi.mock("react-router", async () => {
   const actual = await vi.importActual("react-router");

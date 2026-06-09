@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 import { permitService } from "../features/permit/permitService";
-import { statusLabels, type Permit } from "../types/permitsTypes";
+import { statusLabels, type Permit } from "../features/permit/permit.types";
 import "./PermitDetailPage.css";
 
 export function PermitDetailPage() {
