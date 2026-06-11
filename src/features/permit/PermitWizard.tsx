@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import {
   permitSchema,
   type PermitFormData,
   type PermitFormInput,
 } from "./permitSchema";
-
 import "./PermitWizard.css";
 import { Popup } from "../../components/Popup/Popup";
 import { permitService } from "./permitService";
@@ -17,6 +15,11 @@ import type { Permit } from "./permit.types";
 import { useFocusTrap } from "../../hooks/useFocusTrap";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { setDraftCount } from "../../store/authSlice";
+import { ConfirmPopup } from "../../components/Popup/ConfirmPopup";
+import { WizardStep1Company } from "./steps/WizardStep1Company";
+import { WizardStep2Facility } from "./steps/WizardStep2Facility";
+import { WizardStep3Documents } from "./steps/WizardStep3Documents";
+import { WizardStep4Summary } from "./steps/WizardStep4Summary";
 
 const defaultValues: PermitFormData = {
   companyName: "",
@@ -46,11 +49,17 @@ export function PermitWizard({ draft }: PermitWizardProps) {
   const wizardRef = useFocusTrap<HTMLElement>(true);
   const [currentStep, setCurrentStep] = useState(0);
   const [openPopup, setOpenPopup] = useState(false);
+  const [openSubmitPermitModal, setOpenSubmitPermitModal] = useState(false);
   const [popupTitle, setPopupTitle] = useState("");
   const { user } = useAppSelector((state) => state.auth);
   const [filteredSteps, setFilteredSteps] = useState(steps);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [confirmations, setConfirmations] = useState({
+    confirmAccuracy: false,
+    acceptDataProcessing: false,
+  });
+  const [confirmationError, setConfirmationError] = useState(false);
 
   const {
     register,
@@ -112,6 +121,17 @@ export function PermitWizard({ draft }: PermitWizardProps) {
       );
       setOpenPopup(true);
     }
+  };
+
+  const handleConfirmedSubmit = () => {
+    const allConfirmed = Object.values(confirmations).every(Boolean);
+    if (!allConfirmed) {
+      setConfirmationError(true);
+      return;
+    }
+    setConfirmationError(false);
+    setOpenSubmitPermitModal(false);
+    handleSubmit(onSubmit)();
   };
 
   const handleFileChange = (files: FileList | null) => {
@@ -235,150 +255,20 @@ export function PermitWizard({ draft }: PermitWizardProps) {
 
       <form className="wizardCard" onSubmit={handleSubmit(onSubmit)}>
         {currentStep === 0 && (
-          <div className="formStep">
-            <h2>Unternehmensdaten</h2>
-
-            <label>
-              Unternehmensname
-              <input {...register("companyName")} autoFocus />
-              {errors.companyName && (
-                <span className="error" role="alert">
-                  {errors.companyName.message}
-                </span>
-              )}
-            </label>
-
-            <label>
-              Kontaktperson
-              <input {...register("contactPerson")} />
-              {errors.contactPerson && (
-                <span className="error" role="alert">
-                  {errors.contactPerson.message}
-                </span>
-              )}
-            </label>
-
-            <label>
-              E-Mail
-              <input type="email" {...register("email")} />
-              {errors.email && (
-                <span className="error" role="alert">
-                  {errors.email.message}
-                </span>
-              )}
-            </label>
-          </div>
+          <WizardStep1Company register={register} errors={errors} />
         )}
-
         {currentStep === 1 && (
-          <div className="formStep">
-            <h2>Angaben zur Recyclinganlage</h2>
-
-            <label>
-              Name der Anlage
-              <input {...register("facilityName")} />
-              {errors.facilityName && (
-                <span className="error" role="alert">
-                  {errors.facilityName.message}
-                </span>
-              )}
-            </label>
-
-            <label>
-              Standort
-              <input {...register("location")} />
-              {errors.location && (
-                <span className="error" role="alert">
-                  {errors.location.message}
-                </span>
-              )}
-            </label>
-
-            <label>
-              Kapazität pro Jahr
-              <input
-                type="number"
-                {...register("capacity", { valueAsNumber: true })}
-              />
-              {errors.capacity && (
-                <span className="error" role="alert">
-                  {errors.capacity.message}
-                </span>
-              )}
-            </label>
-
-            <label className="checkboxLabel">
-              <input type="checkbox" {...register("hasPermit")} />
-              Genehmigung liegt bereits vor
-            </label>
-          </div>
+          <WizardStep2Facility register={register} errors={errors} />
         )}
-
         {currentStep === 2 && (
-          <div className="formStep">
-            <h2>Dokumente hochladen</h2>
-
-            <label>
-              Unterlagen
-              <input
-                type="file"
-                multiple
-                onChange={(event) => handleFileChange(event.target.files)}
-              />
-              {errors.documents && (
-                <span className="error" role="alert">
-                  {errors.documents.message}
-                </span>
-              )}
-            </label>
-
-            {(formValues.documents?.length ?? 0) > 0 && (
-              <ul className="documentList">
-                {formValues.documents.map((document) => (
-                  <li key={document}>{document}</li>
-                ))}
-              </ul>
-            )}
-          </div>
+          <WizardStep3Documents
+            register={register}
+            errors={errors}
+            documents={formValues.documents ?? []}
+            onFileChange={handleFileChange}
+          />
         )}
-
-        {currentStep === 3 && (
-          <div className="formStep">
-            <h2>Zusammenfassung</h2>
-
-            <div className="summaryGrid">
-              <div>
-                <strong>Unternehmen</strong>
-                <p>{formValues.companyName}</p>
-              </div>
-
-              <div>
-                <strong>Kontaktperson</strong>
-                <p>{formValues.contactPerson}</p>
-              </div>
-
-              <div>
-                <strong>E-Mail</strong>
-                <p>{formValues.email}</p>
-              </div>
-
-              <div>
-                <strong>Anlage</strong>
-                <p>{formValues.facilityName}</p>
-              </div>
-
-              <div>
-                <strong>Standort</strong>
-                <p>{formValues.location}</p>
-              </div>
-
-              <div>
-                <strong>Kapazität</strong>
-                <p>{formValues.capacity} t/Jahr</p>
-              </div>
-            </div>
-          </div>
-        )}
+        {currentStep === 3 && <WizardStep4Summary formValues={formValues} />}
 
         <div className="wizardActions">
           {currentStep > 0 && (
@@ -408,7 +298,11 @@ export function PermitWizard({ draft }: PermitWizardProps) {
               </button>
             )}
             {currentStep === filteredSteps.length - 1 && (
-              <button type="submit" className="primaryButton">
+              <button
+                type="button"
+                className="primaryButton"
+                onClick={() => setOpenSubmitPermitModal(true)}
+              >
                 Antrag absenden
               </button>
             )}
@@ -424,6 +318,59 @@ export function PermitWizard({ draft }: PermitWizardProps) {
         }}
         title={popupTitle}
       />
+
+      <ConfirmPopup
+        isOpen={openSubmitPermitModal}
+        onConfirm={handleConfirmedSubmit}
+        onCancel={() => {
+          setOpenSubmitPermitModal(false);
+          setConfirmations({
+            confirmAccuracy: false,
+            acceptDataProcessing: false,
+          });
+          setConfirmationError(false);
+        }}
+        title="Erklärung und Zustimmung"
+        message="Bitte bestätigen Sie vor dem Absenden Ihres Antrags:"
+        confirmLabel="Antrag absenden"
+      >
+        <div className="confirmationContent">
+          <label className="checkboxLabel">
+            <input
+              type="checkbox"
+              checked={confirmations.confirmAccuracy}
+              onChange={(e) => {
+                setConfirmations({
+                  ...confirmations,
+                  confirmAccuracy: e.target.checked,
+                });
+                setConfirmationError(false);
+              }}
+            />
+            Ich bestätige, dass die Angaben vollständig und wahrheitsgemäß sind.
+          </label>
+          <label className="checkboxLabel">
+            <input
+              type="checkbox"
+              checked={confirmations.acceptDataProcessing}
+              onChange={(e) => {
+                setConfirmations({
+                  ...confirmations,
+                  acceptDataProcessing: e.target.checked,
+                });
+                setConfirmationError(false);
+              }}
+            />
+            Ich habe die Datenschutzhinweise zur Kenntnis genommen und stimme
+            der Verarbeitung meiner personenbezogenen Daten zu.
+          </label>
+          {confirmationError && (
+            <span className="error" role="alert">
+              Bitte bestätigen Sie alle Punkte, um den Antrag abzusenden.
+            </span>
+          )}
+        </div>
+      </ConfirmPopup>
     </section>
   );
 }

@@ -169,6 +169,15 @@ input:focus {
   border: 2px solid #0069b4;
 }
 
+.confirmationContent {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.confirmationContent label {
+  font-weight: 500;
+}
+
 @media (max-width: 900px) {
   .wizardPage {
     padding: 40px 24px;

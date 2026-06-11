@@ -8,6 +8,7 @@ interface ConfirmPopupProps {
   message: string;
   confirmLabel?: string;
   cancelLabel?: string;
+  children?: React.ReactNode;
   onConfirm: () => void;
   onCancel: () => void;
 }
@@ -18,6 +19,7 @@ export function ConfirmPopup({
   message,
   confirmLabel = "Bestätigen",
   cancelLabel = "Abbrechen",
+  children,
   onConfirm,
   onCancel,
 }: ConfirmPopupProps) {
@@ -31,6 +33,8 @@ export function ConfirmPopup({
       >
         <h2 className="popupTitle">{title}</h2>
         <p className="confirmMessage">{message}</p>
+
+        <div className="popupBody">{children}</div>
         <div className="confirmActions">
           <Button
             type="button"

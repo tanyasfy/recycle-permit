@@ -300,12 +300,25 @@ describe("PermitWizard — submit", () => {
     );
   }
 
-  it("shows success popup after submit", async () => {
-    renderWizard();
-    await navigateToLastStep();
+  async function confirmAndSubmit() {
     await userEvent.click(
       screen.getByRole("button", { name: "Antrag absenden" }),
     );
+    await waitFor(() => screen.getByText("Erklärung und Zustimmung"));
+    await userEvent.click(
+      screen.getByLabelText(/vollständig und wahrheitsgemäß/i),
+    );
+    await userEvent.click(screen.getByLabelText(/Datenschutzhinweise/i));
+    const confirmButtons = screen.getAllByRole("button", {
+      name: "Antrag absenden",
+    });
+    await userEvent.click(confirmButtons[confirmButtons.length - 1]);
+  }
+
+  it("shows success popup after submit", async () => {
+    renderWizard();
+    await navigateToLastStep();
+    await confirmAndSubmit();
     await waitFor(() => {
       expect(
         screen.getByText("Antrag wurde erfolgreich eingereicht."),
@@ -316,9 +329,7 @@ describe("PermitWizard — submit", () => {
   it("resets form to step 1 after successful submit", async () => {
     renderWizard();
     await navigateToLastStep();
-    await userEvent.click(
-      screen.getByRole("button", { name: "Antrag absenden" }),
-    );
+    await confirmAndSubmit();
     await waitFor(() => {
       expect(
         screen.getByText("Antrag wurde erfolgreich eingereicht."),
