@@ -158,6 +158,17 @@ Mehrstufiger Wizard (4 Schritte) zur Einreichung von Zulassungsanträgen:
 - Sichtbare Fokus-Stile für alle Buttons und Eingaben
 - Fehlermeldungen mit `role="alert"` für Screenreader
 
+## Dokumentation
+
+```
+docs/
+├── persona.md        # User Persona – Antragsteller (Max Mustermann)
+└── frames/           # UI-Frames (Wireframes/Mockups als PDF, Frame 1–10)
+```
+
+- **`persona.md`** — Beschreibt den primären Nutzer: Geschäftsführer eines Recyclingunternehmens, der Anträge einreicht, Entwürfe zwischenspeichert und den Bearbeitungsstatus verfolgt.
+- **`frames/`** — 10 UI-Frames als PDF, die den Aufbau der einzelnen Ansichten dokumentieren.
+
 ## Teststrategie
 
 Tests prüfen Verhalten, nicht Implementierungsdetails:
