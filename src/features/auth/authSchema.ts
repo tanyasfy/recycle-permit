@@ -9,4 +9,4 @@ export const authSchema = z.object({
     .min(5, "Das Passwort muss mindestens 5 Zeichen enthalten."),
 });
 
-export type AuthFormInput = z.input<typeof authSchema>;
+export type AuthFormData = z.input<typeof authSchema>;

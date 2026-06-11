@@ -7,7 +7,7 @@ import { authService } from "./authService";
 import type { LoginRequest } from "./auth.types";
 import { useAppDispatch } from "../../hooks/hooks";
 import { loginMockUser, setDraftCount } from "../../store/authSlice";
-import { authSchema, type AuthFormInput } from "./authSchema";
+import { authSchema, type AuthFormData } from "./authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router";
 import { Button } from "../../components/ui/Button";
@@ -35,7 +35,7 @@ export function AuthModal({
   const [showHelp, setShowHelp] = useState(false);
   const sectionRef = useFocusTrap<HTMLElement>(isOpen);
 
-  const stepFields: Array<keyof AuthFormInput> = ["loginId", "password"];
+  const stepFields: Array<keyof AuthFormData> = ["loginId", "password"];
 
   const {
     register,
@@ -43,7 +43,7 @@ export function AuthModal({
     trigger,
     setFocus,
     formState: { errors },
-  } = useForm<AuthFormInput, unknown, LoginRequest>({
+  } = useForm<AuthFormData>({
     resolver: zodResolver(authSchema),
     defaultValues,
     mode: "onTouched",

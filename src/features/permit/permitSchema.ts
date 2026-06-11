@@ -15,5 +15,4 @@ export const permitSchema = z.object({
     .min(1, "Bitte laden Sie mindestens ein Dokument hoch."),
 });
 
-export type PermitFormInput = z.input<typeof permitSchema>;
 export type PermitFormData = z.infer<typeof permitSchema>;

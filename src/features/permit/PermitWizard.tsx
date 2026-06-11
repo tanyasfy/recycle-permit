@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  permitSchema,
-  type PermitFormData,
-  type PermitFormInput,
-} from "./permitSchema";
+import { permitSchema, type PermitFormData } from "./permitSchema";
 import "./PermitWizard.css";
 import { Popup } from "../../components/Popup/Popup";
 import { permitService } from "./permitService";
@@ -71,7 +67,7 @@ export function PermitWizard({ draft }: PermitWizardProps) {
     watch,
     setFocus,
     formState: { errors },
-  } = useForm<PermitFormInput, unknown, PermitFormData>({
+  } = useForm<PermitFormData>({
     resolver: zodResolver(permitSchema),
     defaultValues,
     mode: "onTouched",

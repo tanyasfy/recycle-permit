@@ -1,18 +1,13 @@
 export type User = {
   id: string;
-  password?: string;
+  loginId: string;
+  password: string;
   name: string;
   email: string;
   companyName: string;
   drafts?: number;
 };
 
-export type LoginRequest = {
-  loginId: string;
-  password: string;
-};
+export type LoginRequest = Pick<User, "loginId" | "password">;
 
-export type LoginResponce = {
-  loginId: string;
-  id: string;
-};
+export type LoginResponce = Pick<User, "loginId" | "id">;
